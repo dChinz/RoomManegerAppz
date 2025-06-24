@@ -24,6 +24,8 @@ namespace RoomManegerApp
         {
             textBoxPassword.UseSystemPasswordChar = true;
             this.AcceptButton = button1;
+
+            label3.Visible = false;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -33,7 +35,7 @@ namespace RoomManegerApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sql = @"select id, username, role from users where username = @username and password = @password";
+            string sql = @"select id, username, role, fullname from users where username = @username and password = @password";
             string username = textBoxUsername.Text.Trim();
             string password = textBoxPassword.Text.Trim();
             var data = Database_connect.ExecuteReader(sql, new Dictionary<string, object>
@@ -41,11 +43,24 @@ namespace RoomManegerApp
                 {"@username", username},
                 {"@password", password}
             });
-            foreach(var row in data)
+            if (data.Count == 0)
             {
+                label3.Visible = true;
+                label3.Text = "Tài khoản hoặc mật khẩu không đúng";
+                return;
+            }
+            foreach (var row in data)
+            {
+                int DBrole = Convert.ToInt16(row["role"].ToString());
+                string role = "";
+                if (DBrole == 0) role = "Admin";
+                else if (DBrole == 1) role = "Manager";
+                else if (DBrole == 2) role = "Staff";
+
                 Session.UserId = Convert.ToInt32(row["id"]);
                 Session.UserName = row["username"].ToString();
-                Session.Role = row["role"].ToString();
+                Session.Role = role;
+                Session.Fullname = row["fullname"].ToString();
 
                 Forms.FormDashboard f = new Forms.FormDashboard();
                 f.WindowState = FormWindowState.Maximized;
@@ -53,8 +68,6 @@ namespace RoomManegerApp
                 f.ShowDialog();
                 this.Close();
             }
-            MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
         }
     }
 }

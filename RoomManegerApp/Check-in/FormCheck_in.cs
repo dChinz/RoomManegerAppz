@@ -122,18 +122,39 @@ namespace RoomManegerApp.Forms
             string price = Convert.ToInt32(row["price"]).ToString("#,##0");
             string deposit = Convert.ToInt32(row["deposit"]).ToString("#,##0");
 
-            int rowIndex = dataGridView1.Rows.Add(row["checkins_id"], row["room_name"], row["tenants_name"], row["tenants_phone"],
-                formattedStart_date, formattedEnd_date, row["r_type"], deposit, row["c_status"], price, row["billStatus"]);
+            int DBtype = Convert.ToInt16(row["r_type"].ToString());
+            string type = "";
+            if (DBtype == 0) type = "Standard";
+            else if (DBtype == 1) type = "Superior";
+            else if (DBtype == 2) type = "Deluxe";
+            else if (DBtype == 3) type = "Executive";
+            else if (DBtype == 4) type = "VIP";
 
-            SetStatusColor(dataGridView1.Rows[rowIndex], row["c_status"].ToString());
+            int DBstatus = row["c_status"] != DBNull.Value ? Convert.ToInt16(row["c_status"].ToString()) : -1;
+            string status = "";
+            if (DBstatus == 0) status = "Đang thuê";
+            else if (DBstatus == 1) status = "Chờ nhận phòng";
+            else if (DBstatus == 2) status = "Đã trả phòng";
+            else if (DBstatus == 3) status = "Tới ngày trả phòng";
+            else if (DBstatus == 4) status = "Đã hủy";
+            else if (DBstatus == -1) status = "Chưa xác định";
+
+            int DBbillStatus = Convert.ToInt16(row["billStatus"].ToString());
+            string billStatus = "";
+            if (DBbillStatus == 0) billStatus = "Thanh toán cọc";
+            else if (DBbillStatus == 1) billStatus = "Thanh toán toàn bộ";
+
+            int rowIndex = dataGridView1.Rows.Add(row["checkins_id"], row["room_name"], row["tenants_name"], row["tenants_phone"],
+                    formattedStart_date, formattedEnd_date, type, deposit, status, price, billStatus);
+
+            SetStatusColor(dataGridView1.Rows[rowIndex], status);
         }
 
         private void SetStatusColor(DataGridViewRow row, string status)
         {
             Color backcolor = status switch
             {
-                "Trống" => Color.LightGreen,
-                "Sắp nhận phòng" => Color.Khaki,
+                "Chờ nhận phòng" => Color.Khaki,
                 "Tới ngày trả phòng" => Color.LightGoldenrodYellow,
                 "Đang thuê" => Color.LightSalmon,
                 "Đã hủy" => Color.LightGray,
@@ -144,8 +165,7 @@ namespace RoomManegerApp.Forms
 
             Color forecolor = status switch
             {
-                "Trống" => Color.DarkGreen,
-                "Sắp nhận phòng" => Color.DarkOrange,
+                "Chờ nhận phòng" => Color.DarkOrange,
                 "Tới ngày trả phòng" => Color.DarkGoldenrod,
                 "Đang thuê" => Color.Firebrick,
                 "Đã hủy" => Color.DimGray,
@@ -225,16 +245,20 @@ namespace RoomManegerApp.Forms
                     string room_id = row["room_id"].ToString();
                     string startDateStr = row["start_date"].ToString();
                     string endDateStr = row["end_date"].ToString();
-                    string dbstatus = row["status"].ToString();
+                    int dbstatus = -1;
+                    if (row["status"] != DBNull.Value)
+                    {
+                        dbstatus = Convert.ToInt32(row["status"]);
+                    }
 
-                    if (dbstatus == "Đã hủy")
+                    if (dbstatus == 4) // Đã hủy
                         continue;
-                    if(dbstatus == "Đã trả phòng")
+                    if(dbstatus == 2)// Đã trả phòng
                     {
                         string updateRoomSql = @"UPDATE rooms SET status = @status WHERE id = @id";
                         var roomParams = new Dictionary<string, object>
                             {
-                                { "@status", "Trống" },
+                                { "@status", 0 },
                                 { "@id", room_id }
                             };
                         Database_connect.ExecuteNonQuery(updateRoomSql, roomParams);
@@ -242,33 +266,34 @@ namespace RoomManegerApp.Forms
                     if (DateTime.TryParseExact(startDateStr, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out DateTime start) &&
                         DateTime.TryParseExact(endDateStr, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out DateTime end))
                     {
-                        string status = "";
+                        int status = 0;
 
                         if (today < start)
-                            status = "Sắp nhận phòng";
+                            status = 1;// Chờ nhận phòng
                         else if (today >= start && today < end)
-                            status = "Đang thuê";
+                            status = 0;// Đang thuê
                         else if (today == end)
-                            status = "Tới ngày trả phòng";
+                            status = 3;// Tới ngày trả phòng
                         else if (today > end)
-                            status = "Đã trả phòng";
+                            status = 2;// Đã trả phòng
 
-                        if(status != dbstatus)
+                        if (status != dbstatus)
                         {
+                            // Cập nhật trạng thái
                             string updateSql = @"UPDATE checkins SET status = @status WHERE id = @id";
                             var parameters = new Dictionary<string, object>
-                        {
-                            { "@status", status },
-                            { "@id", id }
-                        };
+                            {
+                                { "@status", status },
+                                { "@id", id }
+                            };
                             Database_connect.ExecuteNonQuery(updateSql, parameters);
 
-                            if (status == "Đang thuê")
+                            if (status == 0)
                             {
                                 string updateRoomSql = @"UPDATE rooms SET status = @status WHERE id = @id";
                                 var roomParams = new Dictionary<string, object>
                             {
-                                { "@status", status },
+                                { "@status", 1 },
                                 { "@id", room_id }
                             };
                                 Database_connect.ExecuteNonQuery(updateRoomSql, roomParams);

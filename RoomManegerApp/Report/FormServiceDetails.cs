@@ -55,15 +55,18 @@ namespace RoomManegerApp.Report
                 double price = Convert.ToDouble(row["servicePrice"].ToString());
                 total += number * price;
 
-                var lbl = new Label()
+                if(number != 0)
                 {
-                    Text = $"{serviceName} x {number} = {number * price:N0} đ",
-                    Location = new Point(x, y),
-                    AutoSize = true,
-                };
+                    var lbl = new Label()
+                    {
+                        Text = $"{serviceName} x {number} = {number * price:N0} đ",
+                        Location = new Point(x, y),
+                        AutoSize = true,
+                    };
 
-                panel1.Controls.Add(lbl);
-                y += 25;
+                    panel1.Controls.Add(lbl);
+                    y += 25;
+                }
 
                 // Nếu quá chiều cao panel thì chuyển sang cột kế bên
                 if (y + 25 > panel1.Height)

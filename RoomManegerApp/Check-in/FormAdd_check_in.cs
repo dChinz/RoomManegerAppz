@@ -18,12 +18,12 @@ namespace RoomManegerApp.Contracts
     {
         private string nameRoom;
         private string nameGuest;
-        private string type;
-        private string size;
+        private int type;
+        private int size;
         private Action _callback;
         private string checkin;
         private string checkout;
-        public FormAdd_check_in(string roomName, string guestName, string roomType, string size, Action callback, string checkin, string checkout)
+        public FormAdd_check_in(string roomName, string guestName, int roomType, int size, Action callback, string checkin, string checkout)
         {
             InitializeComponent();
             nameRoom = roomName;
@@ -42,18 +42,41 @@ namespace RoomManegerApp.Contracts
         }
         private void load_add_contract()
         {
+            if(type == 0)
+            {
+                labelTypeRoom.Text = "Standard";
+            }
+            else if (type == 1)
+            {
+                labelTypeRoom.Text = "Superior";
+            }
+            else if (type == 2)
+            {
+                labelTypeRoom.Text = "Delexu";
+            }
+            else if (type == 3)
+            {
+                labelTypeRoom.Text = "Executive";
+            }
+            else if (type == 4)
+            {
+                labelTypeRoom.Text = "VIP";
+            }
+
+            if (size == 0) labelSize.Text = "Đơn";
+            else if (size == 1) labelSize.Text = "Đôi";
+
             labelNameRoom.Text = nameRoom;
-            labelTypeRoom.Text = type;
             labelGuestname.Text = nameGuest;
             labelChechin.Text = checkin;
             labelCheckout.Text = checkout;
-            labelSize.Text = size;
         }
 
         private void buttonCapnhat_Click(object sender, EventArgs e)
         {
             string Room = nameRoom;
             string Tenant = nameGuest;
+
             DateTime.TryParseExact(labelChechin.Text, "dd-MM-yyyy",
             System.Globalization.CultureInfo.InvariantCulture,
             System.Globalization.DateTimeStyles.None, out DateTime checkinDate);
@@ -63,11 +86,18 @@ namespace RoomManegerApp.Contracts
             System.Globalization.CultureInfo.InvariantCulture,
             System.Globalization.DateTimeStyles.None, out DateTime checkoutDate);
             int end_date = Convert.ToInt32(checkoutDate.ToString("yyyyMMdd"));
+
             int current_date = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
+
             string typeRoom = labelTypeRoom.Text;
             string depositText = Regex.Replace(textBoxDeposit.Text, @"[^\d]", "");
             double deposit = double.Parse(depositText);
             string status_pay = comboBox1.Text;
+            int status = 0; // 0: chưa thanh toán, 1: đã thanh toán
+            if (status_pay == "Thanh toán toàn bộ")
+            {
+                status = 1;
+            }
 
             try
             {
@@ -92,8 +122,8 @@ namespace RoomManegerApp.Contracts
                     {
                         { "@checkins_id", checkinId },
                         { "@userId", Session.UserId},
-                        { "@status", status_pay},
-                        { "@create_date", DateTime.Now.ToString("yyyy-MM-dd")}
+                        { "@status", status},
+                        { "@create_date", int.Parse(DateTime.Now.ToString("yyyyMMdd"))}
                     });
 
                 MessageBox.Show("Check in thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -126,7 +156,6 @@ namespace RoomManegerApp.Contracts
             }
             else
             {
-                string typeRoom = labelTypeRoom.Text;
                 DateTime.TryParseExact(labelChechin.Text, "dd-MM-yyyy",
                 System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None, out DateTime checkinDate);
@@ -136,7 +165,7 @@ namespace RoomManegerApp.Contracts
                 System.Globalization.DateTimeStyles.None, out DateTime checkoutDate);
 
                 string sql = @"select price from rooms where type = @type and size = @size";
-                double price = Convert.ToDouble(Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@type", typeRoom }, { "@size", size } }));
+                double price = Convert.ToDouble(Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@type", type }, { "@size", size } }));
                 int soNgay = (checkoutDate - checkinDate).Days;
                 double total = soNgay * price;
                 textBoxDeposit.Text = total.ToString("#,##0");

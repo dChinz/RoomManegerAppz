@@ -117,14 +117,21 @@ namespace RoomManegerApp.Report
                     group by tenants.name
                     order by tenants.name";
             var data = Database_connect.ExecuteReader(sql);
+
+            string gender = "Nam";
             foreach (var row in data)
-            {
+            { 
+                
+                if (Convert.ToInt16(row["gender"]) == 1)
+                {
+                    gender = "Nữ";
+                }
                 list.Add(new GuestReport
                 {
                     name = row["name"].ToString(),
                     phone = row["phone"].ToString(),
                     id_card = row["id_card"].ToString(),
-                    gender = row["gender"].ToString(),
+                    gender = gender,
                     checkisCount = row["checkinCount"].ToString(),
                     total = row["total"].ToString()
                 });

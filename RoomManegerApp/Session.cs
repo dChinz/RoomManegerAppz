@@ -13,5 +13,7 @@ namespace RoomManegerApp
         public static string UserName { get; set; }
 
         public static string Role {  get; set; }
+
+        public static string Fullname { get; set; }
     }
 }

@@ -49,9 +49,22 @@ namespace RoomManegerApp.Romms
                 var data = Database_connect.ExecuteReader(sql, new Dictionary<string, object> { { "@id", id } });
                 foreach (var row in data)
                 {
+                    int DBtype = Convert.ToInt16(row["type"].ToString());
+                    string type = "";
+                    if (DBtype == 0) type = "Standard";
+                    else if (DBtype == 1) type = "Superior";
+                    else if (DBtype == 2) type = "Deluxe";
+                    else if (DBtype == 3) type = "Executive";
+                    else if (DBtype == 4) type = "VIP";
+
+                    int DBsize = Convert.ToInt16(row["size"].ToString());
+                    string size = "";
+                    if (DBsize == 0) size = "Đơn";
+                    else if (DBsize == 1) size = "Đôi";
+
                     textBox1.Text = row["name"].ToString();
-                    comboBox1.Text = row["type"].ToString();
-                    comboBoxSize.Text = row["size"].ToString();
+                    comboBox1.Text = type;
+                    comboBoxSize.Text = size;
                     textBox4.Text = row["note"].ToString();
                 }
             }
@@ -67,7 +80,20 @@ namespace RoomManegerApp.Romms
                 var data = Database_connect.ExecuteReader(sql);
                 foreach (var row in data)
                 {
-                    textBox2.Text = row["name"].ToString() + ", " + row["type"].ToString() + ", " + row["price"].ToString() + ", " + row["size"].ToString();
+                    int DBtype = Convert.ToInt16(row["type"].ToString());
+                    string type = "";
+                    if (DBtype == 0) type = "Standard";
+                    else if (DBtype == 1) type = "Superior";
+                    else if (DBtype == 2) type = "Deluxe";
+                    else if (DBtype == 3) type = "Executive";
+                    else if (DBtype == 4) type = "VIP";
+
+                    int DBsize = Convert.ToInt16(row["size"].ToString());
+                    string size = "";
+                    if (DBsize == 0) size = "Đơn";
+                    else if (DBsize == 1) size = "Đôi";
+
+                    textBox2.Text = row["name"].ToString() + ", " + type + ", " + row["price"].ToString() + ", " + size;
                 }
             }
         }
@@ -76,8 +102,8 @@ namespace RoomManegerApp.Romms
         {
             string name = textBox1.Text.Trim();
             string status = label7.Text.Trim();
-            string type = comboBox1.Text.Trim();
-            string size = comboBoxSize.Text.Trim();
+            string STRtype = comboBox1.Text.Trim();
+            string STRsize = comboBoxSize.Text.Trim();
             double price = 0;
             string note = textBox4.Text.Trim();
 
@@ -86,35 +112,45 @@ namespace RoomManegerApp.Romms
                 MessageBox.Show("Vui lòng nhập tên phòng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(type))
+            if (string.IsNullOrWhiteSpace(STRtype))
             {
                 MessageBox.Show("Vui lòng chọn loại phòng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if(type == "Standard")
+            int type = 0;
+
+            if(STRtype == "Standard")
             {
+                type = 0;
                 price = 1300000;
             }
-            else if(type == "Superior")
+            else if(STRtype == "Superior")
             {
+                type = 1;
                 price = 1500000;
             }
-            else if (type == "Deluxe")
+            else if (STRtype == "Deluxe")
             {
+                type = 2;
                 price = 1800000;
             }
-            else if (type == "Executive")
+            else if (STRtype == "Executive")
             {
+                type = 3;
                 price = 2000000;
             }
-            else if (type == "VIP")
+            else if (STRtype == "VIP")
             {
+                type = 4;
                 price = 2500000;
             }
 
-            if(size == "Đôi")
+
+            int size = 0;
+            if(STRsize == "Đôi")
             {
+                size = 1;
                 price += 100000;
             }
 

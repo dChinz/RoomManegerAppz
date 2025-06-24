@@ -42,7 +42,7 @@ namespace RoomManegerApp.Report
         private List<M_PrintBills> GetData()
         {
             var list = new List<M_PrintBills>();
-            string sql = @"select tenants.name as t_name, rooms.name as r_name, rooms.type, rooms.price, checkins.start_date, checkins.end_date, users.username as userName, checkins.deposit
+            string sql = @"select tenants.name as t_name, rooms.name as r_name, rooms.type, rooms.price, checkins.start_date, checkins.end_date, users.fullname as fullname, checkins.deposit
                         from checkins
                         inner join bills on bills.checkins_id = checkins.id
                         inner join rooms on checkins.room_id = rooms.id
@@ -61,9 +61,18 @@ namespace RoomManegerApp.Report
                 string total = (Convert.ToDouble(price) * days).ToString("#,##0");
                 string deposit = (Convert.ToDouble(row["deposit"])).ToString("#,##0");
                 string AmountDue = (Convert.ToDouble(total) + lasttotal - Convert.ToDouble(deposit)).ToString("#,##0");
+
+                int DBtype = Convert.ToInt16(row["type"].ToString());
+                string type = "";
+                if (DBtype == 0) type = "Standard";
+                else if (DBtype == 1) type = "Superior";
+                else if (DBtype == 2) type = "Deluxe";
+                else if (DBtype == 3) type = "Executive";
+                else if (DBtype == 4) type = "VIP";
+
                 labelTenKhachhang.Text = $"Tên khách hàng: {row["t_name"]}";
                 labelPhòng.Text = $"Tên phòng: {row["r_name"]}";
-                labelLoaiphong.Text = $"Loại phòng: {row["type"]}";
+                labelLoaiphong.Text = $"Loại phòng: {type}";
                 labelChechin.Text = $"Ngày checkin: {checkin}";
                 labelCheckout.Text = $"Ngày checkout: {checkout}";
                 labelDemluutru.Text = $"Đêm lưu trú: {days}";
@@ -77,11 +86,11 @@ namespace RoomManegerApp.Report
                 {
                     t_name = row["t_name"].ToString(),
                     r_name = row["r_name"].ToString(),
-                    type = row["type"].ToString(),
+                    type = type,
                     start_date = DateTime.ParseExact(row["start_date"].ToString(), "yyyyMMdd", null),
                     end_date = DateTime.ParseExact(row["end_date"].ToString(), "yyyyMMdd", null),
                     total = string.Format(new CultureInfo("vi-VN"), "{0:N0} đ", total),
-                    user = row["userName"].ToString(),
+                    user = row["fullname"].ToString(),
                     deposit = string.Format(new CultureInfo("vi-VN"), "{0:N0} đ", deposit),
                     service = string.Format(new CultureInfo("vi-VN"), "{0:N0} đ", lasttotal),
                 });
@@ -122,16 +131,20 @@ namespace RoomManegerApp.Report
                 double price = Convert.ToDouble(row["price"].ToString());
                 double total = number * price;
 
-                Label lbl = new Label()
+                if (number != 0)
                 {
-                    Text = $"{name} x {number} = {total:N0}đ",
-                    Location = new Point(10, y),
-                    AutoSize = true
-                };
+                    Label lbl = new Label()
+                    {
+                        Text = $"{name} x {number} = {total:N0}đ",
+                        Location = new Point(10, y),
+                        AutoSize = true
 
-                panelService.Controls.Add(lbl);
-                lasttotal += total;
-                y += 20;
+                    };
+                    
+                    panelService.Controls.Add(lbl);
+                    lasttotal += total;
+                    y += 20;
+                }
             }
         }
 

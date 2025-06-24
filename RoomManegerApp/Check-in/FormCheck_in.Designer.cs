@@ -81,19 +81,21 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.buttonAdd_new);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 37);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 24);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 28);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 18);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
             // buttonAdd_new
             // 
             this.buttonAdd_new.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonAdd_new.Location = new System.Drawing.Point(3, 3);
+            this.buttonAdd_new.Location = new System.Drawing.Point(2, 2);
+            this.buttonAdd_new.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonAdd_new.Name = "buttonAdd_new";
-            this.buttonAdd_new.Size = new System.Drawing.Size(144, 40);
+            this.buttonAdd_new.Size = new System.Drawing.Size(96, 26);
             this.buttonAdd_new.TabIndex = 2;
-            this.buttonAdd_new.Text = "Thêm Check-in";
+            this.buttonAdd_new.Text = "Đật phòng";
             this.buttonAdd_new.UseVisualStyleBackColor = false;
             this.buttonAdd_new.Click += new System.EventHandler(this.buttonAdd_new_Click);
             // 
@@ -111,6 +113,7 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel5, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
@@ -118,7 +121,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 692);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // dataGridView1
@@ -140,12 +143,13 @@
             this.status_pay});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 2);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 105);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 68);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1194, 547);
+            this.dataGridView1.Size = new System.Drawing.Size(796, 356);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
@@ -156,7 +160,7 @@
             this.id.MinimumWidth = 8;
             this.id.Name = "id";
             this.id.ReadOnly = true;
-            this.id.Width = 74;
+            this.id.Width = 53;
             // 
             // name_room
             // 
@@ -245,17 +249,19 @@
             this.flowLayoutPanel2.Controls.Add(this.label1);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(603, 37);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(402, 24);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(594, 28);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(396, 18);
             this.flowLayoutPanel2.TabIndex = 5;
             // 
             // buttonSearch
             // 
             this.buttonSearch.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.buttonSearch.Location = new System.Drawing.Point(469, 3);
+            this.buttonSearch.Location = new System.Drawing.Point(313, 3);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(122, 31);
+            this.buttonSearch.Size = new System.Drawing.Size(81, 20);
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Làm mới";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -264,20 +270,18 @@
             // textBoxSearch
             // 
             this.textBoxSearch.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBoxSearch.Location = new System.Drawing.Point(314, 5);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSearch.Location = new System.Drawing.Point(208, 3);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(148, 26);
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 20);
             this.textBoxSearch.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 8);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(17, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(272, 20);
+            this.label1.Size = new System.Drawing.Size(185, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Nhập tên phòng hoặc tên người thuê:";
             // 
@@ -287,10 +291,9 @@
             this.label2.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.label2, 2);
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(315, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(208, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(570, 34);
+            this.label2.Size = new System.Drawing.Size(383, 22);
             this.label2.TabIndex = 6;
             this.label2.Text = "Quản lí đặt phòng, trả phòng";
             // 
@@ -300,19 +303,18 @@
             this.flowLayoutPanel3.Controls.Add(this.btnFirst);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 655);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 426);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(600, 37);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(400, 24);
             this.flowLayoutPanel3.TabIndex = 7;
             // 
             // btnPrev
             // 
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrev.Location = new System.Drawing.Point(514, 5);
-            this.btnPrev.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnPrev.Location = new System.Drawing.Point(342, 3);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(82, 40);
+            this.btnPrev.Size = new System.Drawing.Size(55, 26);
             this.btnPrev.TabIndex = 4;
             this.btnPrev.Text = "<";
             this.btnPrev.UseVisualStyleBackColor = true;
@@ -321,10 +323,9 @@
             // btnFirst
             // 
             this.btnFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFirst.Location = new System.Drawing.Point(424, 5);
-            this.btnFirst.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnFirst.Location = new System.Drawing.Point(281, 3);
             this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(82, 40);
+            this.btnFirst.Size = new System.Drawing.Size(55, 26);
             this.btnFirst.TabIndex = 5;
             this.btnFirst.Text = "<<";
             this.btnFirst.UseVisualStyleBackColor = true;
@@ -336,19 +337,18 @@
             this.flowLayoutPanel4.Controls.Add(this.btnLast);
             this.flowLayoutPanel4.Controls.Add(this.labelPageInfo);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(600, 655);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(400, 426);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(600, 37);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(400, 24);
             this.flowLayoutPanel4.TabIndex = 8;
             // 
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(4, 5);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext.Location = new System.Drawing.Point(3, 3);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(82, 40);
+            this.btnNext.Size = new System.Drawing.Size(55, 26);
             this.btnNext.TabIndex = 7;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -357,10 +357,9 @@
             // btnLast
             // 
             this.btnLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLast.Location = new System.Drawing.Point(94, 5);
-            this.btnLast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnLast.Location = new System.Drawing.Point(64, 3);
             this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(82, 40);
+            this.btnLast.Size = new System.Drawing.Size(55, 26);
             this.btnLast.TabIndex = 8;
             this.btnLast.Text = ">>";
             this.btnLast.UseVisualStyleBackColor = true;
@@ -370,10 +369,9 @@
             // 
             this.labelPageInfo.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelPageInfo.AutoSize = true;
-            this.labelPageInfo.Location = new System.Drawing.Point(184, 15);
-            this.labelPageInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPageInfo.Location = new System.Drawing.Point(125, 9);
             this.labelPageInfo.Name = "labelPageInfo";
-            this.labelPageInfo.Size = new System.Drawing.Size(51, 20);
+            this.labelPageInfo.Size = new System.Drawing.Size(35, 13);
             this.labelPageInfo.TabIndex = 9;
             this.labelPageInfo.Text = "label3";
             // 
@@ -384,39 +382,36 @@
             this.flowLayoutPanel5.Controls.Add(this.button1);
             this.flowLayoutPanel5.Controls.Add(this.button2);
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 68);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 44);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(600, 34);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(400, 22);
             this.flowLayoutPanel5.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 12);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(3, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 20);
+            this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Chọn ngày:";
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.dateTimePicker1.Location = new System.Drawing.Point(101, 9);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dateTimePicker1.Location = new System.Drawing.Point(70, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(298, 26);
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 1;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(407, 5);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(276, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 35);
+            this.button1.Size = new System.Drawing.Size(82, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Hiện thị tất cả";
             this.button1.UseVisualStyleBackColor = true;
@@ -424,10 +419,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(4, 50);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(3, 32);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(182, 35);
+            this.button2.Size = new System.Drawing.Size(121, 23);
             this.button2.TabIndex = 3;
             this.button2.Text = "Hiện thị theo tháng";
             this.button2.UseVisualStyleBackColor = true;
@@ -443,50 +437,49 @@
             this.hủyToolStripMenuItem,
             this.chỉnhSửaToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(316, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(229, 114);
             // 
             // xácNhậnThanhToánToolStripMenuItem
             // 
             this.xácNhậnThanhToánToolStripMenuItem.Name = "xácNhậnThanhToánToolStripMenuItem";
-            this.xácNhậnThanhToánToolStripMenuItem.Size = new System.Drawing.Size(315, 32);
+            this.xácNhậnThanhToánToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.xácNhậnThanhToánToolStripMenuItem.Text = "Xác nhận thanh toán toàn bộ";
             this.xácNhậnThanhToánToolStripMenuItem.Click += new System.EventHandler(this.xácNhậnThanhToánToolStripMenuItem_Click);
             // 
             // xácNhậnTrảPhòngToolStripMenuItem
             // 
             this.xácNhậnTrảPhòngToolStripMenuItem.Name = "xácNhậnTrảPhòngToolStripMenuItem";
-            this.xácNhậnTrảPhòngToolStripMenuItem.Size = new System.Drawing.Size(315, 32);
+            this.xácNhậnTrảPhòngToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.xácNhậnTrảPhòngToolStripMenuItem.Text = "Xác nhận trả phòng";
             this.xácNhậnTrảPhòngToolStripMenuItem.Click += new System.EventHandler(this.xácNhậnTrảPhòngToolStripMenuItem_Click);
             // 
             // inHóaĐơnToolStripMenuItem
             // 
             this.inHóaĐơnToolStripMenuItem.Name = "inHóaĐơnToolStripMenuItem";
-            this.inHóaĐơnToolStripMenuItem.Size = new System.Drawing.Size(315, 32);
+            this.inHóaĐơnToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.inHóaĐơnToolStripMenuItem.Text = "Tạo hóa đơn";
             this.inHóaĐơnToolStripMenuItem.Click += new System.EventHandler(this.inHóaĐơnToolStripMenuItem_Click);
             // 
             // hủyToolStripMenuItem
             // 
             this.hủyToolStripMenuItem.Name = "hủyToolStripMenuItem";
-            this.hủyToolStripMenuItem.Size = new System.Drawing.Size(315, 32);
+            this.hủyToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.hủyToolStripMenuItem.Text = "Hủy đặt trước";
             this.hủyToolStripMenuItem.Click += new System.EventHandler(this.hủyToolStripMenuItem_Click);
             // 
             // chỉnhSửaToolStripMenuItem
             // 
             this.chỉnhSửaToolStripMenuItem.Name = "chỉnhSửaToolStripMenuItem";
-            this.chỉnhSửaToolStripMenuItem.Size = new System.Drawing.Size(315, 32);
+            this.chỉnhSửaToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.chỉnhSửaToolStripMenuItem.Text = "Chỉnh sửa ngày";
             this.chỉnhSửaToolStripMenuItem.Click += new System.EventHandler(this.chỉnhSửaToolStripMenuItem_Click);
             // 
             // FormCheck_in
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormCheck_in";
             this.Text = "Hệ thống quản lí đặt phòng, trả phòng";
             this.Load += new System.EventHandler(this.FormCheck_in_Load);

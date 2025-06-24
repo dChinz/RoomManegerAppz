@@ -60,7 +60,12 @@ namespace RoomManegerApp.Report
             ReportDataSource rds;
             string report = comboBoxReport.Text;
             string timeType = comboBoxTime.Text;
-            int timeValue = Convert.ToInt32(comboBoxSelectTime.Text);
+            int timeValue = comboBoxSelectTime.SelectedItem != DBNull.Value ? Convert.ToInt32(comboBoxSelectTime.SelectedItem) : 0;
+            if (comboBoxSelectTime.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn mốc thời gian", report, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (report == "Báo cáo doanh thu" && comboBoxTime.SelectedItem != null)
             {

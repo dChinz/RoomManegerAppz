@@ -33,6 +33,9 @@ namespace RoomManegerApp.Forms
 
             SetPlaceholderText(textBoxName, "Nhập tên...");
             SetPlaceholderText(textBoxId_card, "Nhập số CCCD...");
+
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         private int currentPage = 1;
@@ -69,7 +72,12 @@ namespace RoomManegerApp.Forms
                     dataGridView1.Rows.Clear();
                     foreach (var row in data)
                     {
-                        dataGridView1.Rows.Add(row["id"], row["name"], row["phone"], row["email"], row["id_card"], row["gender"], row["address"]);
+                        int DBgender = Convert.ToInt16(row["gender"].ToString());
+                        string gender = "";
+                        if (DBgender == 0) gender = "Nam";
+                        else if (DBgender == 1) gender = "Nữ";
+
+                        dataGridView1.Rows.Add(row["id"], row["name"], row["phone"], row["email"], row["id_card"], gender, row["address"]);
                     }
 
                     if (scrollPosition >= 0 && scrollPosition < dataGridView1.Rows.Count)

@@ -49,7 +49,7 @@ namespace RoomManegerApp.Forms
 
         private void loadUI()
         {
-            labelRole.Text = Session.Role;
+            labelRole.Text = Session.Fullname;
 
             timerNow.Interval = 1000;
             timerNow.Tick += timerNow_Tick;

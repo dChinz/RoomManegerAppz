@@ -39,7 +39,13 @@ namespace RoomManegerApp.Users
                 });
                 foreach (var row in data)
                 {
-                    dataGridView1.Rows.Add(row["id"], row["username"], row["password"], row["role"]);
+                    int DBrole = Convert.ToInt16(row["role"].ToString());
+                    string role = "";
+                    if (DBrole == 0) role = "Admin";
+                    else if (DBrole == 1) role = "Manager";
+                    else if (DBrole == 2) role = "Staff";
+
+                    dataGridView1.Rows.Add(row["id"], row["username"], row["password"], role, row["fullname"]);
                 }
             }
             catch (Exception ex)

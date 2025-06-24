@@ -16,12 +16,12 @@ namespace RoomManegerApp.Check_in
     public partial class FormAvailable_Guest : Form
     {
         private string nameRoom;
-        private string type;
-        private string size;
+        private int type;
+        private int size;
         private Action _callback;
         private string checkin;
         private string checkout;
-        public FormAvailable_Guest(string roomName, string roomType, string size, Action callback, string checkin, string checkout)
+        public FormAvailable_Guest(string roomName, int roomType, int size, Action callback, string checkin, string checkout)
         {
             InitializeComponent();
             nameRoom = roomName;
@@ -30,6 +30,17 @@ namespace RoomManegerApp.Check_in
             _callback = callback;
             this.checkin = checkin;
             this.checkout = checkout;
+
+            // Bật DoubleBuffering để giảm giật khi cuộn
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.SetProperty,
+                null, dataGridView1, new object[] { true });
+
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+
         }
 
         private int currentPage = 1;
@@ -66,7 +77,10 @@ namespace RoomManegerApp.Check_in
                     dataGridView1.Rows.Clear();
                     foreach (var row in data)
                     {
-                        dataGridView1.Rows.Add(row["id"], row["name"], row["phone"], row["email"], row["id_card"], row["gender"], row["address"]);
+                        string gender = "Nam";
+                        if (Convert.ToInt16(row["gender"].ToString()) == 1) gender = "Nữ";
+
+                        dataGridView1.Rows.Add(row["id"], row["name"], row["phone"], row["email"], row["id_card"], gender, row["address"]);
                     }
                 }));
                 labelPageInfo.Text = $"Trang {currentPage}/{totalPages}";
@@ -99,6 +113,13 @@ namespace RoomManegerApp.Check_in
         }
 
         private void chọnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string nameGuest = get_name();
+            FormAdd_check_in f = new FormAdd_check_in(nameRoom, nameGuest, type, size, _callback, checkin, checkout);
+            f.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             string nameGuest = get_name();
             FormAdd_check_in f = new FormAdd_check_in(nameRoom, nameGuest, type, size, _callback, checkin, checkout);
@@ -148,7 +169,7 @@ namespace RoomManegerApp.Check_in
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if(currentPage > 0)
+            if(currentPage > 1)
             {
                 currentPage--;
                 await load_form();
@@ -168,6 +189,14 @@ namespace RoomManegerApp.Check_in
         {
             currentPage = totalPages;
             await load_form();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                dataGridView1.Rows[e.RowIndex].Selected = true;
+            }
         }
     }
 }

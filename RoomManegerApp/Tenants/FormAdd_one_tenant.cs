@@ -57,11 +57,16 @@ namespace RoomManegerApp.Tetants
                 var data = Database_connect.ExecuteReader(sql, new Dictionary<string, object> { { "@id", id } });
                 foreach (var row in data)
                 {
+                    int DBgender = Convert.ToInt16(row["gender"].ToString());
+                    string gender = "";
+                    if (DBgender == 0) gender = "Nam";
+                    else if (DBgender == 1) gender = "Nữ";
+
                     textBox1.Text = row["name"].ToString();
                     textBox2.Text = row["phone"].ToString();
                     textBox6.Text = row["email"].ToString();
                     textBox3.Text = row["id_card"].ToString();
-                    comboBox1.Text = row["gender"].ToString();
+                    comboBox1.Text = gender;
                     textBox5.Text = row["address"].ToString();
                 }
             }
@@ -79,10 +84,13 @@ namespace RoomManegerApp.Tetants
             string phone = textBox2.Text.Trim();
             string email = textBox6.Text.Trim();
             string id_card = textBox3.Text.Trim(); 
-            string gender = comboBox1.Text.Trim();
+            string STRgender = comboBox1.Text.Trim();
             string address = textBox5.Text.Trim();
 
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(gender))
+            int gender = 0;
+            if (STRgender == "Nữ") gender = 1;
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(STRgender))
             {
                 MessageBox.Show("Vui lòng điển đầy đủ thông tin", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

@@ -21,18 +21,14 @@ namespace RoomManegerApp.Contracts
         {
             InitializeComponent();
             _callback = callback;
+
+            dateTimePicker2.Value = DateTime.Now.AddDays(1);
         }
 
         private void FormAvailable_room_Load(object sender, EventArgs e)
         {
             //load_status_room();
             UpdateStatusRoom();
-        }
-
-        private void load_status_room()
-        {
-            string sql = @"select name, status, type, size from rooms";
-            loadButton(sql);
         }
 
         private void loadButton(string sql, Dictionary<string, object> paragramers = null)
@@ -44,8 +40,8 @@ namespace RoomManegerApp.Contracts
             {
                 string roomName = row["name"].ToString();
                 string status = row["status"].ToString();
-                string type = row["type"].ToString();
-                string size = row["size"].ToString();
+                int type = Convert.ToInt16(row["type"].ToString());
+                int size = Convert.ToInt16(row["size"].ToString());
                 string checkin = dateTimePicker1.Value.ToString("dd-MM-yyyy");
                 string checkout = dateTimePicker2.Value.ToString("dd-MM-yyyy");
 
@@ -59,7 +55,7 @@ namespace RoomManegerApp.Contracts
                 button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 //if (status == "Trống")
                 //{
-                    if (size == "Đơn")
+                    if (size == 0)
                     {
                         button.BackColor = Color.LightGreen;
                         button.ForeColor = Color.DarkGreen; // chữ xanh đậm
@@ -79,37 +75,38 @@ namespace RoomManegerApp.Contracts
                         button.MouseEnter += (s, e) => button.BackColor = Color.DeepSkyBlue;
                         button.MouseLeave += (s, e) => button.BackColor = Color.LightBlue;
                     }
-                //}
-                //else if (status == "Đang thuê" || status == "Đang sửa chữa")
-                //{
-                //    button.ForeColor = Color.Gray;
-                //    button.Enabled = false;
-                //}
 
                 button.Click += (s, e) =>
                 {
-                    DialogResult result = MessageBox.Show("Bạn muốn chọn phòng: " + roomName, "Thông báo", MessageBoxButtons.YesNo);
+                    DialogResult result = MessageBox.Show("Bạn muốn chọn phòng: " + roomName + "?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         //FormAdd_check_in f = new FormAdd_check_in(roomName, type, _callback);
                         FormAvailable_Guest f = new FormAvailable_Guest(roomName, type, size, _callback, checkin, checkout);
                         f.ShowDialog();
                     }
-                    return;
+                    else if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 };
-                if (type == "Standard")
+                if (type == 0)
                 {
                     flowLayoutPanel1.Controls.Add(button);
                 }
-                else if (type == "Superior")
+                else if (type == 1)
                 {
                     flowLayoutPanel2.Controls.Add(button);
                 }
-                else if (type == "Deluxe")
+                else if (type == 2)
                 {
                     flowLayoutPanel3.Controls.Add(button);
                 }
-                else if (type == "Executive")
+                else if (type == 3)
                 {
                     flowLayoutPanel4.Controls.Add(button);
                 }
@@ -125,30 +122,30 @@ namespace RoomManegerApp.Contracts
             string sql = @"select count(status) as total 
                     from rooms
                     where status = @status and type = @type";
-            var roomType = new[] { "Standard", "Superior", "Deluxe", "Executive", "VIP" };
-            var statuses = new[] { "Trống", "Đang thuê", "Đang sửa chữa" };
+            var roomType = new[] { 0, 1, 2, 3, 4 };
+            var statuses = new[] { 0, 1, 2 };
 
-            var labelMap = new Dictionary<(string type, string status), Label>
+            var labelMap = new Dictionary<(int type, int status), Label>
             {
-                {("Standard", "Trống"), label16 },
-                {("Standard", "Đang thuê"), label18 },
-                {("Standard", "Đang sửa chữa"), label20 },
+                {(0, 0), label16 },
+                {(0, 1), label18 },
+                {(0, 2), label20 },
 
-                {("Superior", "Trống"), label23 },
-                {("Superior", "Đang thuê"), label25 },
-                {("Superior", "Đang sửa chữa"), label27 },
+                {(1, 0), label23 },
+                {(1, 1), label25 },
+                {(1, 2), label27 },
 
-                {("Deluxe", "Trống"), label29 },
-                {("Deluxe", "Đang thuê"), label31 },
-                {("Deluxe", "Đang sửa chữa"), label33 },
+                {(2, 0), label29 },
+                {(2, 1), label31 },
+                {(2, 2), label33 },
 
-                {("Executive", "Trống"), label35 },
-                {("Executive", "Đang thuê"), label37 },
-                {("Executive", "Đang sửa chữa"), label39 },
+                {(3, 0), label35 },
+                {(3, 1), label37 },
+                {(3, 2), label39 },
 
-                {("VIP", "Trống"), label41 },
-                {("VIP", "Đang thuê"), label43 },
-                {("VIP", "Đang sửa chữa"), label45 },
+                {(4, 0), label41 },
+                {(4, 1), label43 },
+                {(4, 2), label45 },
             };
 
             foreach (var type in roomType)

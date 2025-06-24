@@ -38,6 +38,9 @@ namespace RoomManegerApp
 
             buttonSave.Visible = false;
             buttonExit.Visible = false;
+
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         private async void FormRooms_Load(object sender, EventArgs e)
@@ -91,7 +94,27 @@ namespace RoomManegerApp
             dataGridView1.Rows.Clear();
             foreach (var row in data)
             {
-                int rowIndex = dataGridView1.Rows.Add(row["id"], row["name"], row["status"], row["type"], row["price"], row["size"], row["note"]);
+                int DBstatus = Convert.ToInt16(row["status"].ToString());
+                string status = "";
+                if (DBstatus == 0) status = "Trống";
+                else if (DBstatus == 1) status = "Đang thuê";
+                else if (DBstatus == 2) status = "Chờ nhận phòng";
+                else if(DBstatus == 3) status = "Đang sửa chữa";
+
+                int DBtype = Convert.ToInt16(row["type"].ToString());
+                string type = "";
+                if (DBtype == 0) type = "Standard";
+                else if (DBtype == 1) type = "Superior";                                    
+                else if (DBtype == 2) type = "Deluxe";  
+                else if (DBtype == 3) type = "Executive";
+                else if (DBtype == 4) type = "VIP";
+
+                int DBsize = Convert.ToInt16(row["size"].ToString());
+                string size = "";
+                if (DBsize == 0) size = "Đơn";
+                else if (DBsize == 1) size = "Đôi";
+
+                    int rowIndex = dataGridView1.Rows.Add(row["id"], row["name"], status, type, row["price"], size, row["note"]);
                 SetStatusColor(dataGridView1.Rows[rowIndex], row["status"].ToString());
             }
 
@@ -170,6 +193,7 @@ namespace RoomManegerApp
                         string size = row.Cells[5].Value?.ToString();
                         string note = row.Cells[6].Value?.ToString();
                         double price = 0;
+                        int typeInt = 0;
 
                         if (type == "Standard")
                         {
@@ -177,29 +201,44 @@ namespace RoomManegerApp
                         }
                         else if (type == "Superior")
                         {
+                            typeInt = 1;
                             price = 1500000;
                         }
                         else if (type == "Delexu")
                         {
+                            typeInt = 2;
                             price = 1800000;
                         }
                         else if (type == "Executive")
                         {
+                            typeInt = 3;
                             price = 2000000;
                         }
+                        else if (type == "VIP")
+                        {
+                            typeInt = 4;
+                            price = 2500000;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Loại phòng ở dòng {row.Cells[0]} không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            continue;
+                        }
 
+                        int sizeInt = 0;
                         if (size == "Đôi")
                         {
+                            sizeInt = 1;
                             price += 100000;
-                        }
+                        } 
 
                         string sql = @"update rooms set type = @type, price = @price, size = @size, note = @note where id = @id";
                         await Task.Run(() => Database_connect.ExecuteNonQuery(sql, new Dictionary<string, object>
                     {
                         { "@id", id},
-                        { "@type", type},
+                        { "@type", typeInt},
                         { "@price", price},
-                        { "@size", size},
+                        { "@size", sizeInt},
                         { "note", note}
                     }));
 
@@ -362,9 +401,9 @@ namespace RoomManegerApp
             string sql = @"select count(status) as total 
                     from rooms
                     where status = @status";
-            label8.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "Trống"} }).ToString();
-            label6.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "Đang thuê" } }).ToString();
-            label4.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "Đang sửa chữa" } }).ToString();
+            label8.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "0"} }).ToString();
+            label6.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "1" } }).ToString();
+            label4.Text = Database_connect.ExecuteScalar(sql, new Dictionary<string, object> { { "@status", "4" } }).ToString();
         }
 
         private async void buttonExit_edit_Click(object sender, EventArgs e)

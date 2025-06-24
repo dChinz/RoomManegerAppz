@@ -35,52 +35,49 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.comboBoxRole = new System.Windows.Forms.ComboBox();
             this.buttonTao = new System.Windows.Forms.Button();
+            this.textBoxFullname = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(69, 122);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(46, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(72, 177);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(48, 79);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 20);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(108, 229);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(72, 113);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 20);
+            this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Role";
             // 
             // textBoxUsername
             // 
-            this.textBoxUsername.Location = new System.Drawing.Point(160, 117);
-            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxUsername.Location = new System.Drawing.Point(107, 40);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(148, 26);
+            this.textBoxUsername.Size = new System.Drawing.Size(100, 20);
             this.textBoxUsername.TabIndex = 3;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(160, 172);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxPassword.Location = new System.Drawing.Point(107, 76);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(148, 26);
+            this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
             this.textBoxPassword.TabIndex = 4;
             // 
             // comboBoxRole
@@ -91,28 +88,44 @@
             "admin",
             "manager",
             "staff"});
-            this.comboBoxRole.Location = new System.Drawing.Point(160, 225);
-            this.comboBoxRole.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBoxRole.Location = new System.Drawing.Point(107, 110);
             this.comboBoxRole.Name = "comboBoxRole";
-            this.comboBoxRole.Size = new System.Drawing.Size(148, 28);
+            this.comboBoxRole.Size = new System.Drawing.Size(100, 21);
             this.comboBoxRole.TabIndex = 5;
             // 
             // buttonTao
             // 
-            this.buttonTao.Location = new System.Drawing.Point(112, 322);
-            this.buttonTao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonTao.Location = new System.Drawing.Point(75, 206);
             this.buttonTao.Name = "buttonTao";
-            this.buttonTao.Size = new System.Drawing.Size(140, 42);
+            this.buttonTao.Size = new System.Drawing.Size(93, 27);
             this.buttonTao.TabIndex = 6;
             this.buttonTao.Text = "Tạo người dùng";
             this.buttonTao.UseVisualStyleBackColor = true;
             this.buttonTao.Click += new System.EventHandler(this.buttonTao_Click);
             // 
+            // textBoxFullname
+            // 
+            this.textBoxFullname.Location = new System.Drawing.Point(107, 147);
+            this.textBoxFullname.Name = "textBoxFullname";
+            this.textBoxFullname.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFullname.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(46, 150);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Fullname";
+            // 
             // FormAddUser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(399, 425);
+            this.ClientSize = new System.Drawing.Size(266, 276);
+            this.Controls.Add(this.textBoxFullname);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonTao);
             this.Controls.Add(this.comboBoxRole);
             this.Controls.Add(this.textBoxPassword);
@@ -120,7 +133,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormAddUser";
             this.Text = "Thêm người dùng";
             this.Load += new System.EventHandler(this.FormAddUser_Load);
@@ -138,5 +150,7 @@
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.ComboBox comboBoxRole;
         private System.Windows.Forms.Button buttonTao;
+        private System.Windows.Forms.TextBox textBoxFullname;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -71,24 +71,39 @@ namespace RoomManegerApp.Forms
 
         private void FillDataGridView(Dictionary<string, object> row)
         {
-            int startDate = Convert.ToInt32(row["start_date"].ToString());
-            int endDate = Convert.ToInt32(row["end_date"].ToString());
-            DateTime start = DateTime.ParseExact(startDate.ToString(), "yyyyMMdd", null);
-            DateTime end = DateTime.ParseExact(endDate.ToString(), "yyyyMMdd", null);
-            string userName = "";
+            string dbStart_date = row["start_date"].ToString();
+            DateTime.TryParseExact(dbStart_date, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out DateTime start);
 
-            string sql = @"select username from users where id = @id";
+            string dbEnd_date = row["end_date"].ToString();
+            DateTime.TryParseExact(dbEnd_date, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out DateTime end);
+
+            string fullName = "";
+
+            string sql = @"select fullname from users where id = @id";
             var data = Database_connect.ExecuteReader(sql, new Dictionary<string, object> { { "@id", row["billUserId"] } });
             foreach(var row2 in data)
             {
-                userName = row2["username"].ToString();
+                fullName = row2["fullname"].ToString();
             }
 
             int totalDays = (end - start).Days;
             double price = Convert.ToDouble(row["roomPrice"].ToString());
             double deposit = Convert.ToDouble(row["checkinDeposit"].ToString());
 
-            dataGridView1.Rows.Add(row["billId"], row["checkinId"], row["roomName"], row["tenantName"], totalDays, row["roomType"], Convert.ToInt32(row["roomPrice"]).ToString("#,##0"), Convert.ToInt32(deposit).ToString("#,##0"), Convert.ToInt32(totalDays * price - deposit).ToString("#,##0"), row["billStatus"], userName);
+            int DBstatus = Convert.ToInt16(row["billStatus"].ToString());
+            string status = "";
+            if (DBstatus == 0) status = "Thanh toán cọc";
+            else if (DBstatus == 1) status = "Thanh toán toàn bộ";
+
+            int DBtype = Convert.ToInt16(row["roomType"].ToString());
+            string type = "";
+            if (DBtype == 0) type = "Standard";
+            else if (DBtype == 1) type = "Superior";
+            else if (DBtype == 2) type = "Deluxe";
+            else if (DBtype == 3) type = "Executive";
+            else if (DBtype == 4) type = "VIP";
+
+            dataGridView1.Rows.Add(row["billId"], row["checkinId"], row["roomName"], row["tenantName"], totalDays, type, Convert.ToInt32(row["roomPrice"]).ToString("#,##0"), Convert.ToInt32(deposit).ToString("#,##0"), Convert.ToInt32(totalDays * price - deposit).ToString("#,##0"),status, fullName);
         }
 
         private void UpdatePaginationInfo()
